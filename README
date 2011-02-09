@@ -41,3 +41,13 @@ puts forecast.inspect
         :low_f=>\"49\", 
         :high_f=>\"62\"}
 }}
+
+The google forecast can also be done by latitude and longitude using:
+GoogleWeather.forecast(:lat => 37.775,:long => -122.4183333)
+
+NOTES: 
+
+-When you look at the returned forecast, the latitude and longitude will have been multiplied by 1M.
+-Point forecasts (lat & long) are NOT the same as AREA forecasts.  In the examples above, I use San Francisco, and 37.775, -122.418333
+ the latter is the city center of SF.  These are not guaranteed to return the same current conditions as there may be multiple weather stations
+ giving information.
