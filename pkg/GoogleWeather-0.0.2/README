@@ -1,0 +1,43 @@
+== GoogleWeather
+
+This is a gem which produces a class which can be used to retrieve a forecast from Google Weather.
+The Google Weather API is undocumented, but has been pretty stable for the last 2 years.  No 
+guarantees that google won't change the way this api works, or make it unuseable by the overall public.
+Until then, happy forecasting!
+
+Usage
+
+forecast = GoogleWeather.forecast("San Francisco, CA")
+puts forecast.inspect
+
+{:current=>{
+    :conditions=>\"Partly Cloudy\", 
+    :temp_f=>\"52\", :temp_c=>\"11\", 
+    :humidity=>\"Humidity: 81%\", 
+    :wind=>\"Wind: NW at 1 mph\"
+ }, 
+ :location=>{
+    :postal_code=>\"San Francisco, CA\", 
+    :latitude=>\"\", :longitude=>\"\", 
+    :forecast_date=>\"2011-01-18\", 
+    :current_date_time=>\"2011-01-19 03:51:37 +0000\", 
+    :city=>\"San Francisco, CA\"
+    }, 
+:future=>{
+    \"Wed\"=>{
+        :conditions=>\"Partly Cloudy\", 
+        :low_f=>\"47\", 
+        :high_f=>\"61\"}, 
+    \"Thu\"=>{
+        :conditions=>\"Sunny\", 
+        :low_f=>\"49\", 
+        :high_f=>\"62\"}, 
+    \"Tue\"=>{
+        :conditions=>\"Partly Cloudy\", 
+        :low_f=>\"50\", 
+        :high_f=>\"57\"}, 
+    \"Fri\"=>{
+        :conditions=>\"Sunny\", 
+        :low_f=>\"49\", 
+        :high_f=>\"62\"}
+}}
