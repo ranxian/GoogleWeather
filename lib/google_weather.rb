@@ -4,38 +4,39 @@ require "nokogiri"
 
 class GoogleWeather
   
-  public
-  def self.forecast(area_or_options)
-    if area_or_options.is_a?(Hash.class)
-      lat = area_or_options[:lat] | area_or_options[:latitude]
-      long = area_or_options[:long] | area_or_options[:longitude] | area_or_options[:lng]
+  def GoogleWeather.forecast(area_or_options)
+    if area_or_options.is_a?(Hash)
+      lat = area_or_options[:lat] || area_or_options[:latitude]
+      long = area_or_options[:long] || area_or_options[:longitude] || area_or_options[:lng]
       if lat.nil? || long.nil?
         raise ArgumentError, "To forecast via latitude and longitude, :lat & :long are required and must not be nil."
       end
       
-      return self.forecast_lat_long(lat,long)
+      return forecast_lat_long(lat,long)
     
     elsif area_or_options.nil?
         raise ArgumentError, "Forecast area was nil."
     else
-        return self.forecast_area(area_or_options)
+        return forecast_area(area_or_options)
     end
   end
   
   
-  private
-  def self.forecast_lat_long(lat,long)
-    return self.forecast_url(URI.parse("http://www.google.com/ig/api?weather=" + ",,," +
+  ### private class methods
+  def GoogleWeather.forecast_lat_long(lat,long)
+    return forecast_url(URI.parse("http://www.google.com/ig/api?weather=" + ",,," +
                                        (lat * 1000000).to_i.to_s + "," + 
                                        (long * 1000000).to_i.to_s))
   end
+  private_class_method :forecast_lat_long
   
-  def self.forecast_area(area)
-    return self.forecast_url(URI.parse("http://www.google.com/ig/api?weather=" + URI.escape(area)))
+  def GoogleWeather.forecast_area(area)
+    return forecast_url(URI.parse("http://www.google.com/ig/api?weather=" + URI.escape(area)))
   end
+  private_class_method :forecast_area
   
   #### Parses and returns the forecast from the google api url given
-  def self.forecast_url(url)
+  def GoogleWeather.forecast_url(url)
     doc = Nokogiri::XML(open(url))
     
     forecast = {}
@@ -76,6 +77,7 @@ class GoogleWeather
     
     return forecast
   end
+  private_class_method :forecast_url
   
   
 end
